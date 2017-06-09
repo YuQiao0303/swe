@@ -68,7 +68,7 @@ void putBall()
 		{
 			ball.y += step;   //y的坐标不断递增step以穷尽所有情况
 			ball.r = 0;
-			double rstep = 0.1;
+			double rstep = 0.01;
 			while (rstep > 0.00001)
 			{
 				if (ball.r > maxBall.r)
