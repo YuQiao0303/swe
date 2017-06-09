@@ -89,7 +89,7 @@ void putBall()
 		insert(maxBall);
 		num++;
 		sumr += maxBall.r * maxBall.r;
-		printf("%d\t %.3lf\t %.3lf\t %.3lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
+		printf("%d\t %.6lf\t %.6lf\t %.6lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
 	}
 }
 
