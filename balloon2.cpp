@@ -52,7 +52,7 @@ int main()
 		putBall();
 	}
 	printf("\nr^2Ö®ºÍÎª:\t %lf\n", sumr);
-
+	while (1);
 	return 0;
 }
 
