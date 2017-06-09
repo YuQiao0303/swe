@@ -68,7 +68,7 @@ void putBall()
 		{
 			ball.y += step;   //y的坐标不断递增step以穷尽所有情况
 			ball.r = 0;
-			double rstep = 0.01;
+			double rstep = 0.1;
 			while (rstep > 0.00001)
 			{
 				if (ball.r > maxBall.r)
@@ -89,7 +89,7 @@ void putBall()
 		insert(maxBall);
 		num++;
 		sumr += maxBall.r * maxBall.r;
-		printf("%d\t %.6lf\t %.6lf\t %.6lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
+		printf("%d\t %.3lf\t %.3lf\t %.3lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
 	}
 }
 
