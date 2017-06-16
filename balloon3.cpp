@@ -11,6 +11,7 @@
 4.满足条件的最大圆将放入一个链表中，这样一来之后的圆在进行位置判断时可以与已放入的圆进行比较，从而判断其是否满足条件；
 */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -36,7 +37,7 @@ double distance(Ball b1, Ball b2);          //判断气球之间的距离
 double abs(double num);					    //取绝对值
 int judge(Ball b);							//判断新加入的气球是否符合规则
 void putBall();								//改变气球的初始位置，求的满足条件的气球
-void putPoint(double x, double y);			//放置点
+void putPoint(double x, double y, double z);			//放置点
 
 BallList *head = NULL;
 double step = 0.01;							//改变气球位置的最小单位
@@ -53,16 +54,28 @@ int main()
 	for (i = 0; i < pointNum; i++)
 	{
 		printf("请输入第%d个点的坐标(其间用空格隔开)：", i + 1);
-		double x, y,z;
-		scanf_s("%lf %lf %lf", &x, &y,&z);
-		putPoint(x, y,z);
-	}
+		double x, y, z;
+		scanf_s("%lf %lf %lf", &x, &y, &z);
+		putPoint(x, y, z);
+	} 
 	printf("\n球编号\t x坐标\t y坐标\t z坐标\t 半径\t r^2之和\n");
 	for (i = 0; i < n; i++)
 	{
 		putBall();
 	}
 	printf("\nr^2之和为:\t %lf\n", sumr);
+	printf("\n\n");
+	//ballList *temp = head;
+	//int counter = 1;
+	//while (temp!= NULL)
+	//{
+	//	printf("\n\n");
+	//	printf("%d\t %.3lf\t %.3lf\t %.3lf\t %.3lf\t ", counter, temp->ball.x, temp->ball.y, temp->ball.z, temp->ball.r);
+	//	counter++;
+	//	temp = temp->next;
+	//}
+	printf("end");
+	while (1);
 	return 0;
 }
 
@@ -70,6 +83,7 @@ void putPoint(double x, double y, double z)
 {
 	Ball ball = { x, y, z,0 };
 	insert(ball);
+	/*printf("putPoint~");*/
 }
 
 void insert(Ball ball)
@@ -78,13 +92,14 @@ void insert(Ball ball)
 	newBall->ball = ball;
 	newBall->next = head;
 	head = newBall;
+	/*printf("insert~");*/
 }
 
 void putBall()
 {
 	Ball ball = { -1 + step, -1 + step, -1 + step,0 };
 	Ball maxBall = ball;
-	int i, j,k;
+	int i, j, k;
 	for (i = 0; ball.x < 1; ++i)                 //
 	{
 		ball.x += step;
@@ -94,7 +109,7 @@ void putBall()
 		{
 			ball.y += step;
 			ball.z = -1 + step;
-			for (k = 0; ball.z < 1;++k)
+			for (k = 0; ball.z < 1; ++k)
 			{
 				ball.z += step;
 				ball.r = 0;
@@ -158,7 +173,7 @@ double distance(Ball b1, Ball b2)
 	double x2 = b2.x;
 	double y2 = b2.y;
 	double z2 = b1.z;
-	return pow((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)+ (z1 - z2) , 0.5);
+	return pow((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2)*(z1 - z2), 0.5);
 }
 
 
