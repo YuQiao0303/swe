@@ -69,7 +69,7 @@ int main()
 		scanf_s("%lf %lf %lf", &x, &y, &z);
 		putPoint(x, y, z);
 	}
-	printf("\n球编号\t x坐标\t y坐标\t z坐标\t 半径\t r^2之和\n");
+	printf("\n球编号\t x坐标\t y坐标\t z坐标\t 半径\t r^2之和");
 
 	PMYDATA pDataArray[MAX_THREADS];           //参数
 	DWORD   dwThreadIdArray[MAX_THREADS]; //线程函数数组
@@ -96,27 +96,8 @@ int main()
 		0,                      // use default creation flags 
 		&dwThreadIdArray[i]);   // returns the thread identifier 
 
-
-
-	/*这一段是线程函数要完成的事情
-	for (i = 0; i < n; i++)
-	{
-		putBall();
-	}
-	*/
-
-
+	WaitForMultipleObjects(MAX_THREADS, hThreadArray, TRUE, INFINITE);
 	printf("\nr^2之和为:\t %lf\n", sumr);
-	printf("\n\n");
-	//ballList *temp = head;
-	//int counter = 1;
-	//while (temp!= NULL)
-	//{
-	//	printf("\n\n");
-	//	printf("%d\t %.3lf\t %.3lf\t %.3lf\t %.3lf\t ", counter, temp->ball.x, temp->ball.y, temp->ball.z, temp->ball.r);
-	//	counter++;
-	//	temp = temp->next;
-	//}
 	printf("end");
 	while (1);
 	return 0;
@@ -143,14 +124,24 @@ DWORD WINAPI threadfunc(LPVOID lpParam)
 	int m,i;
 	m = pDataArray->m;
 	i = pDataArray->i;
-	while(num<m)
+	while (1)
 	{
 		EnterCriticalSection(&cs);
-		putBall();
-		printf("这是线程%d的气球",i);
+		if (num < m)
+		{
+			putBall();
+			printf("这是线程%d的气球", i);
+			printf("num=%d,m=%d", num, m);
+		}
 		LeaveCriticalSection(&cs);
+		if (num == m)
+		{
+
+			break;
+		}
 	}
-	
+	printf("\nend of thread%d", i);
+	return 0;
 }
 void putBall()
 {
